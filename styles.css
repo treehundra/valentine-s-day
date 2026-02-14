@@ -15,17 +15,16 @@
 body {
   margin: 0;
   min-height: 100vh;
-  overflow: hidden;
-  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;   /* запрещаем только горизонтальный */
+  overflow-y: auto;     /* вертикальный скролл разрешён */
+  -webkit-overflow-scrolling: touch; /* приятный скролл на iOS */
+  font-family: "Poppins", sans-serif;
   display: grid;
   place-items: center;
-  background:
-    radial-gradient(circle at 15% 20%, rgba(255, 193, 219, 0.45), transparent 40%),
-    radial-gradient(circle at 85% 12%, rgba(255, 145, 196, 0.45), transparent 33%),
-    radial-gradient(circle at 50% 82%, rgba(255, 171, 212, 0.28), transparent 40%),
-    linear-gradient(160deg, #ffe9f2 0%, #ffdce9 48%, #ffd4e5 100%);
+  background: radial-gradient(circle at top right, #ffd7e8, var(--pink-100) 50%, #ffdce8);
   color: var(--text);
 }
+
 
 .heart-background {
   position: fixed;
@@ -58,10 +57,10 @@ body {
 }
 
 .container {
-  position: relative;
-  z-index: 1;
-  width: min(92vw, 840px);
+  width: min(90vw, 700px);
+  padding: 24px 0; /* чтобы на мобиле было куда скроллить */
 }
+
 
 .screen {
   display: none;
