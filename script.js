@@ -1,3 +1,5 @@
+document.body.classList.add('no-scroll');
+
 const heartContainer = document.querySelector('.heart-background');
 const noBtn = document.querySelector('#no-btn');
 const yesBtn = document.querySelector('#yes-btn');
