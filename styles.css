@@ -23,11 +23,14 @@ body {
   font-family: "Poppins", sans-serif;
   background: radial-gradient(circle at top right, #ffd7e8, var(--pink-100) 50%, #ffdce8);
   color: var(--text);
-
-  /* важно: по умолчанию обычный поток (для мобилки) */
   display: block;
 }
 
+/* ЛОК СКРОЛЛА (и на первом, и на втором — скроллим только внутренний блок) */
+body.no-scroll {
+  height: 100vh;
+  overflow: hidden;
+}
 
 .heart-background {
   position: fixed;
@@ -35,12 +38,20 @@ body {
   pointer-events: none;
   z-index: 0;
   overflow: hidden;
+
+  /* помогает iOS не "фризить" fixed во время скролла */
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 .heart {
   position: absolute;
   bottom: -12vh;
-  color: rgba(255, 95, 156, 0.35);
+
+  /* белые сердца */
+  color: rgba(255, 255, 255, 0.55);
+  text-shadow: 0 0 18px rgba(255, 255, 255, 0.35);
+
   animation: floatUp linear infinite;
   user-select: none;
 }
@@ -60,12 +71,12 @@ body {
 }
 
 .container {
+  position: relative;
+  z-index: 1;
   width: min(92vw, 700px);
   margin: 24px auto;
   padding: 0;
 }
-
-
 
 .screen {
   display: none;
@@ -95,7 +106,7 @@ h1,
 h2 {
   margin: 0;
   color: #b62660;
-  font-family: 'Great Vibes', cursive;
+  font-family: "Great Vibes", cursive;
   text-shadow: 0 6px 24px rgba(255, 130, 186, 0.45);
 }
 
@@ -114,6 +125,7 @@ h2 {
   align-items: center;
   gap: 1rem;
   min-height: 86px;
+  flex-wrap: wrap;
 }
 
 .btn {
@@ -145,11 +157,28 @@ h2 {
   position: relative;
 }
 
-#yes-screen {
-  overflow: hidden;
-  min-height: 630px;
+/* 1 экран — по центру без скролла */
+#question-screen {
+  min-height: calc(100vh - 48px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
+/* 2 экран — НЕ скроллим body, скроллим открытку внутри */
+#yes-screen {
+  position: relative;
+  height: 100vh;
+  padding: 18px 0;
+  overflow: hidden;
+
+  /* чтобы карточка была по центру по горизонтали */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* букет остаётся поверх */
 .bouquet {
   position: absolute;
   left: 50%;
@@ -160,6 +189,7 @@ h2 {
   opacity: 0;
   transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.9s ease;
   filter: drop-shadow(0 20px 30px rgba(160, 43, 92, 0.35));
+  z-index: 5;
 }
 
 .bouquet--show {
@@ -194,10 +224,17 @@ h2 {
   border-radius: 12px;
 }
 
+/* ВОТ ЗДЕСЬ СКРОЛЛ ОТКРЫТКИ */
 .envelope-wrap {
-  margin-top: 1.3rem;
   position: relative;
   perspective: 1400px;
+  width: min(92vw, 700px);
+
+  max-height: calc(100vh - 36px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+
+  padding: 10px 0 34px;
 }
 
 .envelope {
@@ -248,8 +285,8 @@ h2 {
 
 .letter p {
   margin: 0.65rem 0;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.35rem;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.28rem;
   line-height: 1.42;
   color: #6c2747;
 }
@@ -261,23 +298,30 @@ h2 {
 }
 
 .memory-photo img {
-  transition: transform 0.6s ease;
   width: 100%;
-  max-width: 380px;
+  max-width: 520px;     /* больше */
   aspect-ratio: 3 / 4;
   object-fit: cover;
   border-radius: 20px;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.14);
+  transition: transform 0.6s ease;
 }
 
 .memory-photo img:hover {
   transform: scale(1.03);
 }
 
+@media (max-width: 480px) {
+  .memory-photo img {
+    max-width: 100%;
+  }
+}
 
 .memory-photo figcaption {
   margin-top: 0.5rem;
   font-size: 0.95rem;
   color: #8f3a61;
+  text-align: center;
 }
 
 .envelope-wrap.open .envelope-flap {
@@ -289,20 +333,24 @@ h2 {
   transform: translateY(0) scale(1);
 }
 
-/* центрируем "открытку" только на широких экранах */
+/* центрируем всё как открытку только на широких экранах */
 @media (min-width: 768px) {
   body {
     display: grid;
     place-items: center;
   }
+
+  .container {
+    margin: 0;
+  }
 }
 
-
-  #yes-screen {
-    min-height: 630px;
+@media (max-width: 640px) {
+  .letter p {
+    font-size: 1.16rem;
   }
 
-  .letter p {
-    font-size: 1.2rem;
+  .envelope {
+    min-height: 380px;
   }
 }
