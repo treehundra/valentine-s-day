@@ -1,0 +1,132 @@
+:root {
+  --pink-100: #ffe7f0;
+  --pink-300: #ffb3cf;
+  --pink-500: #ff6fa6;
+  --pink-700: #e6357b;
+  --white: #fff;
+  --text: #7f1d4d;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow: hidden;
+  font-family: "Poppins", sans-serif;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle at top right, #ffd7e8, var(--pink-100) 50%, #ffdce8);
+  color: var(--text);
+}
+
+.heart-background {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.heart {
+  position: absolute;
+  bottom: -10vh;
+  color: rgba(255, 93, 143, 0.35);
+  animation-name: floatUp;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  user-select: none;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-120vh) translateX(var(--drift)) scale(1.2);
+    opacity: 0;
+  }
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  width: min(90vw, 700px);
+}
+
+.screen {
+  display: none;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.65);
+  border: 2px solid rgba(255, 111, 166, 0.35);
+  backdrop-filter: blur(6px);
+  border-radius: 30px;
+  padding: 3rem 2rem;
+  box-shadow: 0 12px 30px rgba(158, 42, 93, 0.18);
+}
+
+.screen--active {
+  display: block;
+}
+
+h1,
+h2 {
+  margin-top: 0;
+  font-family: "Great Vibes", cursive;
+  color: #c2185b;
+}
+
+h1 {
+  font-size: clamp(2.4rem, 8vw, 5rem);
+}
+
+h2 {
+  font-size: clamp(2rem, 7vw, 4rem);
+}
+
+p {
+  font-size: 1.15rem;
+}
+
+.buttons {
+  margin-top: 1.75rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  min-height: 70px;
+}
+
+.btn {
+  border: none;
+  border-radius: 999px;
+  padding: 0.85rem 1.8rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.btn--yes {
+  background: var(--pink-700);
+  color: var(--white);
+  box-shadow: 0 10px 18px rgba(230, 53, 123, 0.3);
+}
+
+.btn--yes:hover {
+  transform: translateY(-2px);
+}
+
+.btn--no {
+  background: #fff;
+  color: var(--pink-700);
+  border: 2px solid var(--pink-500);
+  position: relative;
+}
