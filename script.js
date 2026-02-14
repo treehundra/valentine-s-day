@@ -27,9 +27,7 @@ function createHeart() {
   heartContainer.appendChild(heart);
 }
 
-for (let i = 0; i < 42; i += 1) {
-  createHeart();
-}
+for (let i = 0; i < 42; i += 1) createHeart();
 
 function moveNoButton() {
   const wrapRect = buttonsWrap.getBoundingClientRect();
@@ -55,14 +53,12 @@ yesBtn.addEventListener('click', () => {
   questionScreen.classList.remove('screen--active');
   yesScreen.classList.add('screen--active');
 
-});
-
-
+  // запускаем анимации только после клика "Да"
   requestAnimationFrame(() => {
-    bouquet.classList.add('bouquet--show');
+    bouquet?.classList.add('bouquet--show');
 
     setTimeout(() => {
-      envelopeWrap.classList.add('open');
+      envelopeWrap?.classList.add('open');
     }, 450);
   });
 });
