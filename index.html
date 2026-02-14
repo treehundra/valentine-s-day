@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Will You Be My Valentine Mi Amore</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;700&family=Great+Vibes&family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="heart-background" aria-hidden="true"></div>
+
+    <main class="container">
+      <section class="screen screen--active" id="question-screen">
+        <h1>Will you be my Valentine mi amore?</h1>
+        <div class="buttons">
+          <button id="yes-btn" class="btn btn--yes">Да</button>
+          <button id="no-btn" class="btn btn--no">Нет</button>
+        </div>
+      </section>
+
+      <section class="screen" id="yes-screen" aria-live="polite">
+        <div class="bouquet" id="bouquet" aria-hidden="true">
+          <span class="flower f1"></span>
+          <span class="flower f2"></span>
+          <span class="flower f3"></span>
+          <span class="flower f4"></span>
+          <span class="flower f5"></span>
+          <span class="ribbon"></span>
+        </div>
+
+        <div class="envelope-wrap" id="envelope-wrap">
+          <div class="envelope">
+            <div class="envelope-flap"></div>
+            <article class="letter">
+              <h2>Для моей любимой</h2>
+              <p>
+                Ты счастье в моей жизни и радость каждого дня. С тобой я понял, что
+                есть жизнь до встречи с тобой и жизнь после — и вторая наполнена
+                теплом, смыслом и любовью.
+              </p>
+              <p>
+                Каждый момент рядом с тобой для меня бесценен. Спасибо за твою
+                нежность, улыбку и свет, который ты приносишь в мой мир.
+              </p>
+              <figure class="memory-photo">
+                <img src="photo.svg" alt="Наша совместная фотография" />
+                <figcaption>Самые дорогие моменты с тобой</figcaption>
+              </figure>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
