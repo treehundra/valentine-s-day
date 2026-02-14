@@ -25,6 +25,9 @@ body {
   color: var(--text);
 }
 
+body.no-scroll {
+  overflow: hidden;
+}
 
 .heart-background {
   position: fixed;
