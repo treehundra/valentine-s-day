@@ -10,6 +10,8 @@ const envelopeWrap = document.querySelector('#envelope-wrap');
 const bouquet = document.querySelector('#bouquet');
 
 function createHeart() {
+  if (!heartContainer) return;
+
   const heart = document.createElement('span');
   heart.className = 'heart';
   heart.textContent = '❤';
@@ -32,6 +34,8 @@ function createHeart() {
 for (let i = 0; i < 42; i += 1) createHeart();
 
 function moveNoButton() {
+  if (!buttonsWrap || !noBtn) return;
+
   const wrapRect = buttonsWrap.getBoundingClientRect();
   const btnRect = noBtn.getBoundingClientRect();
 
@@ -44,23 +48,34 @@ function moveNoButton() {
   noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
 }
 
-['mouseenter', 'mousedown', 'touchstart', 'click'].forEach((eventName) => {
-  noBtn.addEventListener(eventName, (event) => {
-    event.preventDefault();
+if (noBtn) {
+  // Для мыши (десктоп)
+  noBtn.addEventListener('mouseenter', moveNoButton);
+
+  // Для тапа на мобилке: предотвращаем "нажатие", но даём UI отработать
+  noBtn.addEventListener(
+    'touchstart',
+    (e) => {
+      e.preventDefault();
+      moveNoButton();
+    },
+    { passive: false }
+  );
+
+  // Клик оставляем без preventDefault (иначе на iOS могут быть побочные эффекты)
+  noBtn.addEventListener('click', () => {
     moveNoButton();
   });
-});
+}
 
-yesBtn.addEventListener('click', () => {
-  questionScreen.classList.remove('screen--active');
-  yesScreen.classList.add('screen--active');
+if (yesBtn) {
+  yesBtn.addEventListener('click', () => {
+    questionScreen?.classList.remove('screen--active');
+    yesScreen?.classList.add('screen--active');
 
-  // запускаем анимации только после клика "Да"
-  requestAnimationFrame(() => {
-    bouquet?.classList.add('bouquet--show');
-
-    setTimeout(() => {
-      envelopeWrap?.classList.add('open');
-    }, 450);
+    requestAnimationFrame(() => {
+      bouquet?.classList.add('bouquet--show');
+      setTimeout(() => envelopeWrap?.classList.add('open'), 450);
+    });
   });
-});
+}
