@@ -51,9 +51,15 @@ function moveNoButton() {
   });
 });
 
+document.body.classList.add('no-scroll'); // на первом экране скролл выключен
+
 yesBtn.addEventListener('click', () => {
   questionScreen.classList.remove('screen--active');
   yesScreen.classList.add('screen--active');
+
+  document.body.classList.remove('no-scroll'); // разрешаем скролл
+});
+
 
   requestAnimationFrame(() => {
     bouquet.classList.add('bouquet--show');
